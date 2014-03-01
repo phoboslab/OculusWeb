@@ -57,16 +57,18 @@ static int callback_http(
 
 			if( sscanf(body, "%31[^=&]=%d", name, &value) == 2 ) {
 				if( strcmp(name, "interval") == 0 && value ) {
-					printf("setting send interval to %dms", value);
+					printf("Setting send interval to %dms\n", value);
 					sendInterval = value;
 				}
 				else if( strcmp(name, "prediction") == 0 ) {
-					printf("setting prediction to %dms", value);
+					printf("Setting prediction to %dms\n", value);
 					fusion->SetPrediction((float)value/1000, !!value);
 				}
 			}
 		} while( (body = strchr(body, '&')) && ++body );
 		
+		sprintf(send_buffer, "%s{interval:%d, prediction:%d}", httpHeader, sendInterval, (int)(fusion->GetPredictionDelta()*1000.0f+0.5f));
+		libwebsocket_write_http(wsi, (unsigned char*)send_buffer, strlen(send_buffer));
 		return -1;
 	}
 	
