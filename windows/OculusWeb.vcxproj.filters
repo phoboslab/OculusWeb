@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="libwebsocket">
+      <UniqueIdentifier>{31315dfc-ce59-44b9-b9b6-b05839fc6808}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libwebsocket\win32helpers">
+      <UniqueIdentifier>{fdec35fe-89a9-4938-a7c0-5407f2689c1e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\libwebsocket\libwebsockets.h">
+      <Filter>libwebsocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\libwebsocket\win32helpers\gettimeofday.h">
+      <Filter>libwebsocket\win32helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\libwebsocket\win32helpers\websock-w32.h">
+      <Filter>libwebsocket\win32helpers</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

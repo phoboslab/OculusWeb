@@ -1,0 +1,282 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B612F17318BE52780010F5BD /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B612F17218BE52780010F5BD /* CoreFoundation.framework */; };
+		B612F17518BE52880010F5BD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B612F17418BE52880010F5BD /* CoreGraphics.framework */; };
+		B612F17718BE52930010F5BD /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B612F17618BE52930010F5BD /* IOKit.framework */; };
+		B6F0456E18BFF2B600D48D19 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6F0455C18BFF2B600D48D19 /* main.cpp */; };
+		B6F045CF18BFF59100D48D19 /* libwebsockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B6F045CE18BFF59100D48D19 /* libwebsockets.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B612F12018BE3ABF0010F5BD /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		B612F12218BE3ABF0010F5BD /* OculusWeb */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = OculusWeb; sourceTree = BUILT_PRODUCTS_DIR; };
+		B612F17218BE52780010F5BD /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		B612F17418BE52880010F5BD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		B612F17618BE52930010F5BD /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		B6F0455C18BFF2B600D48D19 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../src/main.cpp; sourceTree = SOURCE_ROOT; };
+		B6F045BE18BFF40900D48D19 /* libwebsockets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = libwebsockets.h; path = ../../OculusWeb/src/libwebsocket/libwebsockets.h; sourceTree = "<group>"; };
+		B6F045CE18BFF59100D48D19 /* libwebsockets.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebsockets.a; path = ../../OculusWeb/src/libwebsocket/libwebsockets.a; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B612F11F18BE3ABF0010F5BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B612F17718BE52930010F5BD /* IOKit.framework in Frameworks */,
+				B612F17518BE52880010F5BD /* CoreGraphics.framework in Frameworks */,
+				B612F17318BE52780010F5BD /* CoreFoundation.framework in Frameworks */,
+				B6F045CF18BFF59100D48D19 /* libwebsockets.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B612F11918BE3ABF0010F5BD = {
+			isa = PBXGroup;
+			children = (
+				B612F17618BE52930010F5BD /* IOKit.framework */,
+				B612F17418BE52880010F5BD /* CoreGraphics.framework */,
+				B612F17218BE52780010F5BD /* CoreFoundation.framework */,
+				B612F12418BE3ABF0010F5BD /* OculusWeb */,
+				B612F12318BE3ABF0010F5BD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B612F12318BE3ABF0010F5BD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B612F12218BE3ABF0010F5BD /* OculusWeb */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B612F12418BE3ABF0010F5BD /* OculusWeb */ = {
+			isa = PBXGroup;
+			children = (
+				B6F0456F18BFF35400D48D19 /* libwebsocket */,
+				B6F0455C18BFF2B600D48D19 /* main.cpp */,
+			);
+			path = OculusWeb;
+			sourceTree = "<group>";
+		};
+		B6F0456F18BFF35400D48D19 /* libwebsocket */ = {
+			isa = PBXGroup;
+			children = (
+				B6F045CE18BFF59100D48D19 /* libwebsockets.a */,
+				B6F045BE18BFF40900D48D19 /* libwebsockets.h */,
+			);
+			name = libwebsocket;
+			path = ../../src/libwebsocket;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B612F12118BE3ABF0010F5BD /* OculusWeb */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B612F12B18BE3ABF0010F5BD /* Build configuration list for PBXNativeTarget "OculusWeb" */;
+			buildPhases = (
+				B612F11E18BE3ABF0010F5BD /* Sources */,
+				B612F11F18BE3ABF0010F5BD /* Frameworks */,
+				B612F12018BE3ABF0010F5BD /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OculusWeb;
+			productName = OculusWeb;
+			productReference = B612F12218BE3ABF0010F5BD /* OculusWeb */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B612F11A18BE3ABF0010F5BD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Dominic Szablewski";
+			};
+			buildConfigurationList = B612F11D18BE3ABF0010F5BD /* Build configuration list for PBXProject "OculusWeb" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = B612F11918BE3ABF0010F5BD;
+			productRefGroup = B612F12318BE3ABF0010F5BD /* Products */;
+			projectDirPath = "";
+			projectRoot = ../;
+			targets = (
+				B612F12118BE3ABF0010F5BD /* OculusWeb */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B612F11E18BE3ABF0010F5BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6F0456E18BFF2B600D48D19 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		B612F12918BE3ABF0010F5BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(OCULUS_SDK)/LibOVR/Include",
+				);
+				LIBRARY_SEARCH_PATHS = "$(OCULUS_SDK)/LibOVR/Lib/MacOS/Release/";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				OCULUS_SDK = ../../OculusSDK;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		B612F12A18BE3ABF0010F5BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(OCULUS_SDK)/LibOVR/Include",
+				);
+				LIBRARY_SEARCH_PATHS = "$(OCULUS_SDK)/LibOVR/Lib/MacOS/Release/";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				OCULUS_SDK = ../../OculusSDK;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		B612F12C18BE3ABF0010F5BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = NO;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/dominic/xcode/OculusWeb/src/libwebsocket,
+				);
+				OTHER_LDFLAGS = "-lovr";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B612F12D18BE3ABF0010F5BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = NO;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/dominic/xcode/OculusWeb/src/libwebsocket,
+				);
+				OTHER_LDFLAGS = "-lovr";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B612F11D18BE3ABF0010F5BD /* Build configuration list for PBXProject "OculusWeb" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B612F12918BE3ABF0010F5BD /* Debug */,
+				B612F12A18BE3ABF0010F5BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B612F12B18BE3ABF0010F5BD /* Build configuration list for PBXNativeTarget "OculusWeb" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B612F12C18BE3ABF0010F5BD /* Debug */,
+				B612F12D18BE3ABF0010F5BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B612F11A18BE3ABF0010F5BD /* Project object */;
+}
