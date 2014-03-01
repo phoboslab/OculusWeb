@@ -1,8 +1,8 @@
 #include "libwebsocket/libwebsockets.h"
 #include "OVR.h"
 
-#define OW_SEND_WAIT_MS 2 // attempt to send every 2ms
 #define OW_RX_BUFFER_SIZE (100*1024) // 100kb
+static unsigned sendInterval = 2;
 
 static char _send_buffer_with_padding[LWS_SEND_BUFFER_PRE_PADDING + OW_RX_BUFFER_SIZE + LWS_SEND_BUFFER_POST_PADDING];
 static char *send_buffer = (char *)&_send_buffer_with_padding[LWS_SEND_BUFFER_PRE_PADDING];
@@ -48,50 +48,81 @@ static int callback_http(
 	enum libwebsocket_callback_reasons reason, void *user,
 	void *in, size_t len
 ) {
-	if( reason == LWS_CALLBACK_HTTP_FILE_COMPLETION ) { return -1; }
-	if( reason != LWS_CALLBACK_HTTP ) { return 0; }
+	// HTTP body for post request - only allowed for /set URL
+	if( reason == LWS_CALLBACK_HTTP_BODY ) {
+		char *body = (char *)in;
+		do {
+			char name[32];
+			int value;
+
+			if( sscanf(body, "%31[^=&]=%d", name, &value) == 2 ) {
+				if( strcmp(name, "interval") == 0 && value ) {
+					printf("setting send interval to %dms", value);
+					sendInterval = value;
+				}
+				else if( strcmp(name, "prediction") == 0 ) {
+					printf("setting prediction to %dms", value);
+					fusion->SetPrediction((float)value/1000, !!value);
+				}
+			}
+		} while( (body = strchr(body, '&')) && ++body );
+		
+		return -1;
+	}
 	
-	char *request = (char *)in;
-	if( strcmp(request, "/orientation") == 0 && hmd ) {
-		OVR::Quatf q = fusion->GetPredictedOrientation();
-		sprintf(send_buffer, "%s[%f,%f,%f,%f]", httpHeader, q.w, q.x, q.y, q.z);
-		libwebsocket_write_http(wsi, (unsigned char*)send_buffer, strlen(send_buffer));
+	else if( reason == LWS_CALLBACK_HTTP ) {
+		char *request = (char *)in;
+		if( strcmp(request, "/orientation") == 0 && hmd ) {
+			OVR::Quatf q = fusion->GetPredictedOrientation();
+			sprintf(send_buffer, "%s[%f,%f,%f,%f]", httpHeader, q.w, q.x, q.y, q.z);
+			libwebsocket_write_http(wsi, (unsigned char*)send_buffer, strlen(send_buffer));
+		}
+		else if( strcmp(request, "/device") == 0 && hmd ) {
+			hmd->GetDeviceInfo(&hmdinfo);
+			sprintf(send_buffer, "%s"
+				"{"
+					"fov: %f,"
+					"hScreenSize: %f,"
+					"vScreenSize: %f,"
+					"vScreenCenter: %f,"
+					"eyeToScreenDistance: %f,"
+					"lensSeparationDistance: %f,"
+					"interpupillaryDistance: %f,"
+					"hResolution: %d,"
+					"vResolution: %d,"
+					"distortionK: [%f, %f, %f, %f],"
+					"chromaAbCorrection: [%f, %f, %f, %f]"
+				"}",
+				httpHeader,
+				stereoConfig.GetYFOVDegrees(),
+				hmdinfo.HScreenSize,
+				hmdinfo.VScreenSize,
+				hmdinfo.VScreenCenter,
+				hmdinfo.EyeToScreenDistance,
+				hmdinfo.LensSeparationDistance,
+				hmdinfo.InterpupillaryDistance,
+				hmdinfo.HResolution,
+				hmdinfo.VResolution,
+				hmdinfo.DistortionK[0], hmdinfo.DistortionK[1], hmdinfo.DistortionK[2], hmdinfo.DistortionK[3],
+				hmdinfo.ChromaAbCorrection[0], hmdinfo.ChromaAbCorrection[1], hmdinfo.ChromaAbCorrection[2], hmdinfo.ChromaAbCorrection[3]
+			);
+			libwebsocket_write_http(wsi, (unsigned char*)send_buffer, strlen(send_buffer));
+		}
+		else if( strstr(request, "/set") == request ) {
+			if( lws_hdr_total_length(wsi, WSI_TOKEN_POST_URI) ) {
+				// Post request - let it continue
+				return 0;
+			}
+		}
+		else {
+			libwebsockets_return_http_status(context, wsi, HTTP_STATUS_NOT_FOUND, NULL);
+		}
+		return -1;
 	}
-	else if( strcmp(request, "/device") == 0 && hmd ) {
-		hmd->GetDeviceInfo(&hmdinfo);
-		sprintf(send_buffer, "%s"
-			"{"
-				"fov: %f,"
-				"hScreenSize: %f,"
-				"vScreenSize: %f,"
-				"vScreenCenter: %f,"
-				"eyeToScreenDistance: %f,"
-				"lensSeparationDistance: %f,"
-				"interpupillaryDistance: %f,"
-				"hResolution: %d,"
-				"vResolution: %d,"
-				"distortionK: [%f, %f, %f, %f],"
-				"chromaAbCorrection: [%f, %f, %f, %f]"
-			"}",
-			httpHeader,
-			stereoConfig.GetYFOVDegrees(),
-			hmdinfo.HScreenSize,
-			hmdinfo.VScreenSize,
-			hmdinfo.VScreenCenter,
-			hmdinfo.EyeToScreenDistance,
-			hmdinfo.LensSeparationDistance,
-			hmdinfo.InterpupillaryDistance,
-			hmdinfo.HResolution,
-			hmdinfo.VResolution,
-			hmdinfo.DistortionK[0], hmdinfo.DistortionK[1], hmdinfo.DistortionK[2], hmdinfo.DistortionK[3],
-			hmdinfo.ChromaAbCorrection[0], hmdinfo.ChromaAbCorrection[1], hmdinfo.ChromaAbCorrection[2], hmdinfo.ChromaAbCorrection[3]
-		);
-		libwebsocket_write_http(wsi, (unsigned char*)send_buffer, strlen(send_buffer));
-	}
+
 	else {
-		libwebsockets_return_http_status(context, wsi, HTTP_STATUS_NOT_FOUND, NULL);
+		return 0;
 	}
-	return -1;
 }
 
 
@@ -147,7 +178,7 @@ int main(int argc, const char * argv[]) {
 	while( true ) {
 		libwebsocket_callback_on_writable_all_protocol(&(protocols[1]));
 		libwebsocket_service(ws, 0);
-		ow_sleep(OW_SEND_WAIT_MS);
+		ow_sleep(sendInterval);
 	}
 	
 	
