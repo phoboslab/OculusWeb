@@ -115,6 +115,9 @@ static int callback_http(
 				// Post request - let it continue
 				return 0;
 			}
+			else {
+				libwebsockets_return_http_status(context, wsi, HTTP_STATUS_BAD_REQUEST, NULL);
+			}
 		}
 		else {
 			libwebsockets_return_http_status(context, wsi, HTTP_STATUS_NOT_FOUND, NULL);
