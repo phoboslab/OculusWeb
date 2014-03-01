@@ -57,3 +57,11 @@ req.open('GET', 'http://localhost:9006/orientation', false); // false = blocking
 req.send();
 var quat = JSON.parse(req.responseText);
 ```
+
+You can change the default WebSocket send interval (default 2ms) and OVR's predicition value (default 40ms) through an HTTP POST:
+
+```javascript
+var req = new XMLHttpRequest();
+req.open('POST', 'http://localhost:9006/set');
+req.send('interval=10&prediction=20');
+```
